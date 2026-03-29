@@ -22,7 +22,7 @@ Welcome to my backup portfolio. This page serves as a reliable mirror of my work
 ## 📺 Motivation Video
 This video introduces my background and my passion for studying at CGL.
 
-<img src="images/p11.jpg" width="500">
+<img src="images/p11.png" width="500">
 
 
 *Please: [Watch on Vimeo](https://vimeo.com/1178229615)*
