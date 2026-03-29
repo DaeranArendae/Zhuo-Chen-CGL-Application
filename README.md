@@ -133,7 +133,7 @@ One of my favorite pieces. I experimented with different color schemes to create
 <br>
 
 ---
-*Thank you for watching!*
+*Thank you for watching! Hope we will meet again soon^^*
 
 <br>
 
