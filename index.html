@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zhuo Chen's Portfolio | Game Artist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #FFCAD4; color: #4A4A4A; font-family: 'Segoe UI', system-ui, sans-serif; scroll-behavior: smooth; }
+        
+        /* 💖 CSS 动态爱心 */
+        .heart-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .heart { position: absolute; width: 20px; height: 20px; background: rgba(255, 255, 255, 0.4); transform: rotate(-45deg); animation: float 15s linear infinite; opacity: 0; }
+        .heart::before, .heart::after { content: ""; position: absolute; width: 20px; height: 20px; background: rgba(255, 255, 255, 0.4); border-radius: 50%; }
+        .heart::before { top: -10px; left: 0; }
+        .heart::after { top: 0; left: 10px; }
+        @keyframes float {
+            0% { transform: translateY(110vh) rotate(-45deg); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(-45deg); opacity: 0; }
+        }
+
+        /* 💬 对话框样式 (磨砂玻璃) */
+        .speech-bubble {
+            position: relative; 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(12px);
+            border: 3px solid #4A4A4A;
+            border-radius: 20px; padding: 15px 25px; display: inline-block;
+            box-shadow: 6px 6px 0px #4A4A4A; z-index: 10;
+        }
+        .speech-bubble::after { content: ''; position: absolute; border-style: solid; }
+
+        .bubble-bottom::after {
+            bottom: -20px; left: 50%; transform: translateX(-50%);
+            border-width: 20px 15px 0 15px; border-color: #4A4A4A transparent transparent transparent;
+        }
+        .bubble-left-side::after {
+            left: -20px; top: 50%; transform: translateY(-50%);
+            border-width: 15px 20px 15px 0; border-color: transparent #4A4A4A transparent transparent;
+        }
+        .bubble-right-side::after {
+            right: -20px; top: 50%; transform: translateY(-50%);
+            border-width: 15px 0 15px 20px; border-color: transparent transparent transparent #4A4A4A;
+        }
+
+        /* 🎨 作品展示区 */
+        .artwork { margin-bottom: 80px; }
+        .artwork img {
+            width: 100%; border-radius: 12px; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .artwork img:hover { transform: scale(1.02); }
+        /* 字体颜色加深：opacity 0.7 -> 0.85 */
+        .caption { font-size: 15px; margin-top: 15px; opacity: 0.8; font-weight: 500; line-height: 1.6; color: #333; }
+
+        /* 🌒 Lightbox */
+        .lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); display: none;
+            justify-content: center; align-items: center; z-index: 100; cursor: zoom-out;
+        }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 10px; }
+
+        /* 视频容器与小人 */
+        .video-container { position: relative; width: 100%; max-width: 850px; z-index: 5; margin-top: 50px; }
+        .avatar-peek {
+            position: absolute; top: -250px; left: 50%; transform: translateX(-50%);
+            width: 580px; z-index: 20; pointer-events: none;
+        }
+
+        /* 交互反馈 (Hover) */
+        nav {
+            position: fixed; top: 25px; right: 25px; z-index: 50;
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px);
+            padding: 12px 24px; border-radius: 40px; border: 3px solid #4A4A4A;
+            box-shadow: 6px 6px 0px #4A4A4A; transition: all 0.3s ease;
+        }
+        nav:hover { transform: translateY(-2px); box-shadow: 8px 8px 0px #4A4A4A; background: rgba(255,255,255,0.9); }
+        nav a { margin: 0 12px; font-weight: 900; font-size: 13px; transition: 0.3s; color: #4A4A4A; }
+        nav a:hover { color: #ff6b81; }
+
+        /* 名字 Hover：改为柔和粉白 + 极轻微发光 */
+        .name-highlight { transition: all 0.3s ease; cursor: default; }
+        .name-highlight:hover { color: #FFF0F3; }
+
+        /* 分段文字加深：opacity 0.6 -> 0.8 */
+        .section-divider { font-style: italic; opacity: 0.78; font-weight: bold; margin-bottom: 40px; text-align: center; color: #4A4A4A; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#intro">INTRODUCTION</a>
+        <a href="#portfolio">PORTFOLIO</a>
+    </nav>
+
+    <div class="heart-bg">
+        <div class="heart" style="left:10%; animation-delay:0s"></div>
+        <div class="heart" style="left:35%; animation-delay:5s"></div>
+        <div class="heart" style="left:65%; animation-delay:2s"></div>
+        <div class="heart" style="left:90%; animation-delay:8s"></div>
+    </div>
+
+    <section id="intro" class="min-h-screen flex flex-col items-center justify-center pt-56 pb-20 px-10">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold italic mb-2 opacity-80">Hi there, you found me 👋</h2>
+            <h1 class="text-7xl font-black tracking-tighter">
+                I’m <span class="text-pink-500 name-highlight">Zhuo Chen</span>
+            </h1>
+        </div>
+
+        <div class="flex flex-col items-center w-full max-w-5xl relative mt-24">
+            <div class="speech-bubble bubble-bottom mb-16 font-bold text-lg -mt-12">
+                Let me introduce myself :)
+            </div>
+            
+            <div class="video-container">
+                <img src="images/avatar-intro.png" class="avatar-peek object-contain" alt="Zhuo Intro">
+                <div class="rounded-3xl overflow-hidden shadow-2xl bg-black border-[6px] border-white">
+                    <iframe 
+                        src="https://player.vimeo.com/video/1178229615?badge=0&autopause=0" 
+                        frameborder="0" 
+                        allow="autoplay; fullscreen; picture-in-picture" 
+                        class="w-full aspect-video"
+                        title="Intro Video">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="max-w-4xl mx-auto py-32 px-6">
+        <div class="flex items-center gap-10 mb-24">
+            <img src="images/avatar-works.png" class="w-[375px] h-auto flex-shrink-0 object-contain" alt="Zhuo Works">
+            <div class="speech-bubble bubble-left-side">
+                <p class="text-2xl font-black tracking-tight">HERE IS MY PORTFOLIO 🎨</p>
+            </div>
+        </div>
+
+        <p class="section-divider">Let’s start with two characters I designed for my indie game, Lucky Bunny’s Foot.</p>
+
+        <div class="artwork">
+            <img src="images/p01.jpg" alt="Lucky Bunny" onclick="openLightbox('images/p01.jpg')">
+            <div class="caption">
+                <span class="font-bold text-xl text-gray-800">Lucky Bunny</span><br>
+                Meet Lucky Bunny 🐰. He is a mysterious young man with rabbit ears. He is mischievous and constantly seeking validation. I designed his magician-inspired outfit and bows to give him a fairy-tale-like charm.
+            </div>
+        </div>
+
+        <div class="artwork">
+            <img src="images/p02.jpg" alt="Darwin" onclick="openLightbox('images/p02.jpg')">
+            <div class="caption">
+                <span class="font-bold text-xl text-gray-800">Darwin</span><br>
+                This is Darwin, a resurrected vampire working as a supernatural agent and the player's partner. By blending an long coat and a black tactical outfit, I aimed to create a subtle balance between "playful and dangerously powerful" and "safely reliable."
+            </div>
+        </div>
+
+        <p class="section-divider">And here are some of my practices.</p>
+
+        <div class="artwork">
+            <img src="images/p03.jpg" onclick="openLightbox('images/p03.jpg')">
+            <div class="caption"><span class="font-bold text-xl text-gray-800">Figure Drawing (Female)</span><br>Beyond physical accuracy, I also focus on those expressive facial details.</div>
+        </div>
+        <div class="artwork">
+            <img src="images/p04.jpg" onclick="openLightbox('images/p04.jpg')">
+            <div class="caption"><span class="font-bold text-xl text-gray-800">Figure Drawing (Male)</span><br>A continuous study of muscle structure. If I stop practicing for some days, the details fade.</div>
+        </div>
+        <div class="artwork">
+            <img src="images/p05.jpg" onclick="openLightbox('images/p05.jpg')">
+            <div class="caption"><span class="font-bold text-xl text-gray-800">Color & Tone</span><br>Can an apple be so colorful?</div>
+        </div>
+        <div class="artwork">
+            <img src="images/p06.jpg" onclick="openLightbox('images/p06.jpg')">
+            <div class="caption"><span class="font-bold text-xl text-gray-800">Object & Ambient Light</span><br>A study of how objects react and shift color in saturated environments.</div>
+        </div>
+        <div class="artwork">
+            <img src="images/p07.jpg" onclick="openLightbox('images/p07.jpg')">
+            <div class="caption"><span class="font-bold text-xl text-gray-800">Character & Ambient Light</span><br>A study of how to render characters under colored ambient lighting.</div>
+        </div>
+        <div class="artwork">
+            <img src="images/p08.jpg" onclick="openLightbox('images/p08.jpg')">
+            <div class="caption"><span class="font-bold text-xl text-gray-800">Character & Environment</span><br>A complete illustration combining character and scene.</div>
+        </div>
+        <div class="artwork">
+            <img src="images/p09.jpg" onclick="openLightbox('images/p09.jpg')">
+            <div class="caption"><span class="font-bold text-xl text-gray-800">Environment & Lighting</span><br>A study of lighting in an African landscape at night, also including distant city lights and reflections on water.</div>
+        </div>
+        <div class="artwork">
+            <img src="images/p10.jpg" onclick="openLightbox('images/p10.jpg')">
+            <div class="caption"><span class="font-bold text-xl text-gray-800">Environment & Mood</span><br>One of my favorite pieces. I experimented with different color schemes to create different atmospheres for the same scene.</div>
+        </div>
+    </section>
+
+    <section class="py-20 px-10 flex justify-end items-center max-w-7xl mx-auto relative -top-12">
+        <div class="flex items-center gap-12">
+            <div class="speech-bubble bubble-right-side text-right">
+                <p class="text-2xl font-serif italic mb-2">Thank you for watching ^^</p>
+                <p class="text-sm opacity-90 leading-relaxed font-medium">
+                    I hope we’ll meet again soon.<br>
+                    Have a wonderful day!
+                </p>
+            </div>
+            <img src="images/avatar-bye.png" class="w-[500px] h-auto flex-shrink-0 object-contain" alt="Zhuo Bye">
+        </div>
+    </section>
+
+    <footer class="text-center pb-16 opacity-60 text-[10px] tracking-[0.3em] uppercase">
+        Designed & Built with 💖 and coffee by Zhuo Chen. <br>
+        (No pixels were harmed during the making of this site.)
+    </footer>
+
+    <div id="lightbox" class="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" alt="Zoomed Work">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
