@@ -128,7 +128,7 @@ One of my favorite pieces. I experimented with different color schemes to create
 
 - **My Portfolio Website:** [Vercel Link](https://zhuochen.vercel.app)
   
-- **Motivation Video on Vimeo:** [Zhuo Chen](https://vimeo.com/user237145710)
+- **Motivation Video on Vimeo:** [Zhuo Chen](https://vimeo.com/1178229615)
 
 <br>
 
