@@ -60,6 +60,9 @@ This is Darwin, a resurrected vampire working as a supernatural agent and the pl
 <br>
 
 ### And here are some of my practices.
+
+All illustrations are created with Clip Studio Paint and Procreate.
+
 <br>
 
 ### 03. Figure Drawing (Female)
